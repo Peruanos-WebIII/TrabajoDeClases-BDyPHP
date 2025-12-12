@@ -13,6 +13,19 @@
             $_POST['txtDescrip']);
 
         $Regis = mysqli_query($conex,$auxSql) or die(mysqli_error($conex));
+                $newCategoryID = mysqli_insert_id($conex);
+                $archivo = $_FILES["txtArchi"]["tmp_name"];
+        $tamanio = $_FILES["txtArchi"]["size"];
+        $tipo    = $_FILES["txtArchi"]["type"];
+        $nombre  = $_FILES["txtArchi"]["name"];
+        if($archivo != "" && $archivo != "none"){
+            $archi = fopen($archivo, "rb");
+            $contenido = fread($archi, $tamanio);
+            $contenido = addslashes($contenido);
+            fclose($archi);
+            $AuxSql = "Update categories set Imagen='$contenido', Mime='$tipo' Where CategoryID = " . $newCategoryID;
+            $regis = mysqli_query($conex,$AuxSql) or die(mysqli_error($conex));
+        }
         header("Location: categories.php");
     }
 ?>	
@@ -39,7 +52,7 @@
                 <h4 class="card-title">Insertar Categoría</h4>
             </div>
             <div class="card-body">
-                <form method="post" name="formita" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                <form method="post" name="formita" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
                     <table class="table table-bordered">
                         <tr>
                             <td><strong>Nombre</strong></td>
@@ -50,8 +63,12 @@
                             <td><input type="text" name="txtDescrip" size="50" maxlength="50"></td>
                         </tr>
                         <tr>
+                            <td><strong>Imagen</strong></td>
+                            <td><input type="file" name="txtArchi" accept="image/*"></td>
+                        </tr>
+                        <tr>
                             <td colspan="2">
-                                <input type="submit" value="Aceptar">
+                                <input type="submit" value="Aceptar" class="btn btn-primary">
                             </td>
                         </tr>
                     </table>

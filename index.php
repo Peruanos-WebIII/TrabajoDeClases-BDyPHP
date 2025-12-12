@@ -14,7 +14,7 @@
     </header>
     
     <main class="row contenido">
-        <h4>Esperando hacer algo....!</h4>
+        <h4>Trabajo de clases (PHP y MySQL) - PeruanosTeam.</h4>
     </main>
     
     <footer class="row pie">

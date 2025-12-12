@@ -7,7 +7,6 @@
             $_POST['txtUsua'],
             $_POST['txtContra']);
 
-        //$regis = mysqli_query($conex, $auxSql) or die(mysqli_error($conex));
         $regis = mysqli_query($conex, $auxSql) or exit("Sorry, your written request is baddest...!");
         $rowRegis = mysqli_fetch_assoc($regis);
 
